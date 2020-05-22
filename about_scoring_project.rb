@@ -31,6 +31,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+    dice.uniq.map do |die|
+        count = dice.count die
+        if count > 2
+            count -= 3
+            die == 1 ? 1000 : 100 * die
+        else 0
+        end + case die
+            when 1 then count * 100
+            when 5 then count * 50
+            else 0
+            end
+    end.inject(:+) || 0
 end
 
 class AboutScoringProject < Neo::Koan
